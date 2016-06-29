@@ -70,6 +70,9 @@ class FriendSearchViewController: UIViewController {
     func updateList(results: [PFObject]?, error: NSError?) {
         self.users = results as? [PFUser] ?? []
         self.tableView.reloadData()
+        if let error = error {
+            ErrorHandling.defaultErrorHandler(error)
+        }
         
     }
     
@@ -86,6 +89,10 @@ class FriendSearchViewController: UIViewController {
             // use map to extract the User from a Follow object
             self.followingUsers = relations.map {
                 $0.objectForKey(ParseHelper.ParseFollowToUser) as! PFUser
+            }
+            
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
             }
             
         }

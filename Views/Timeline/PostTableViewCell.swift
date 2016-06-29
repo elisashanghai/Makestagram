@@ -23,12 +23,18 @@ class PostTableViewCell: UITableViewCell {
     @IBAction func likeButtonTapped(sender: AnyObject) {
         post?.toggleLikePost(PFUser.currentUser()!)
     }
-    
     var post: Post? {
         didSet {
             // 1
             postDisposable?.dispose()
             likeDisposable?.dispose()
+            
+            // free memory of image stored with post that is no longer displayed
+            // 1
+            if let oldValue = oldValue where oldValue != post {
+                // 2
+                oldValue.image.value = nil
+            }
             
             if let post = post {
                 // 2
@@ -75,5 +81,6 @@ class PostTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
 
 }

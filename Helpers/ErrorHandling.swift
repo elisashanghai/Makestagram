@@ -27,6 +27,8 @@ struct ErrorHandling {
     
         let window = UIApplication.sharedApplication().windows[0]
         window.rootViewController?.presentViewControllerFromTopViewController(alert, animated: true, completion: nil)
+        
+        
     }
   
     /**
